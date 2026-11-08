@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#111110"><meta name="description" content="How the EdgeX research controller starts, compares actions, records artifacts, and resumes a research run."><title>Research method | EdgeX</title><link rel="stylesheet" href="./styles.css"><script src="./script.js" defer></script></head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="header wrap"><a class="wordmark" href="./index.html" aria-label="EdgeX home">EdgeX</a><nav aria-label="Main navigation"><a href="./install.html">Install</a><a href="./method.html" aria-current="page">Method</a><a href="./agents.html">Agents</a><a class="github-link" href="https://github.com/KashyapSinh-Gohil/edgex-agents">GitHub</a></nav></header>
+  <main id="main">
+    <section class="page-intro wrap"><span class="eyebrow">EdgeX / 02 · Method</span><h1>A next action.<br><em>With a reason.</em></h1><p>The host proposes the work. The persistent controller checks prerequisites and records a decision. The host carries out the action and reports what actually happened.</p></section>
+    <section class="method wrap" aria-label="Research controller protocol">
+      <ol class="protocol-list">
+        <li><span class="protocol-number">01</span><div><h2>Start with a contract.</h2><p>Set the question, acceptance criteria, research profile, and step and time budgets.</p></div><code>research_start</code></li>
+        <li><span class="protocol-number">02</span><div><h2>Read the current state.</h2><p>Recover the persistent run ID, current revision, remaining budget, and allowed actions.</p></div><code>research_status</code></li>
+        <li><span class="protocol-number">03</span><div><h2>Compare before committing.</h2><p>Compare two to eight distinct host-proposed candidates under action prerequisites. Rank estimated information gain, impact, feasibility, cost, and risk.</p></div><code>research_decide</code></li>
+        <li><span class="protocol-number">04</span><div><h2>Return evidence. Revise.</h2><p>Record success, failure, inconclusive results, or contradiction with actual artifacts. Stale revisions are rejected.</p></div><code>research_observe</code></li>
+      </ol>
+      <div class="trace-heading"><div><span class="eyebrow">Decision trace / Illustrative only</span><h2>Different evidence.<br>Different next move.</h2></div><p>These three fixed examples explain the protocol. They run only in this browser; they do not call MCP tools, perform research, or represent live controller output.</p></div>
+      <div class="trace-controls" hidden><label class="eyebrow" for="scenario">Choose a research situation</label><select id="scenario"><option value="evidence">Evidence gap</option><option value="failure">Failed experiment</option><option value="review">Final review</option></select></div>
+      <div class="trace-layout" id="trace">
+        <div class="trace-state"><span class="eyebrow" id="trace-meta">Illustrative / Literature profile</span><h3 id="trace-title">A claim has no primary source.</h3><p id="trace-observation">The question is framed, but a key claim rests on a secondary summary. The source milestone is missing.</p><div class="trace-prerequisite"><span class="eyebrow">Prerequisite check</span><p id="trace-gate">Search is allowed after framing. Review is unavailable until analysis is recorded.</p></div><span class="eyebrow">Admissible candidates / Ranked</span><ol class="candidates" id="trace-candidates"><li><span>01 / Selected</span><strong>Search for the original study</strong></li><li><span>02 / Alternative</span><strong>Search for a narrower source</strong></li><li><span>03 / Alternative</span><strong>Reframe the question</strong></li></ol></div>
+        <div class="trace-result"><div class="eyebrow trace-result-top"><span>Next action</span></div><p class="trace-action" id="trace-action">Dispatch<br>the scout.</p><p id="trace-reason">Locate the original study and return an excerpt with a section locator. Closing the evidence gap is more useful than reframing an already specific question.</p><div class="trace-return"><span class="eyebrow">Expected return</span><p id="trace-artifact">A source record and search artifact. An unsuccessful search must still return an artifact.</p></div><code id="trace-tool">research_decide → search</code></div>
+      </div>
+      <p id="trace-announcement" class="sr-only" role="status" aria-live="polite"></p>
+      <details class="policy"><summary>How the decision policy works</summary><p>The controller scores admissible candidates using <code>0.4 × information_gain + 0.3 × impact + 0.2 × feasibility − 0.15 × cost − 0.25 × risk</code>. These inputs are host judgments, not measured probabilities or scientific confidence. A candidate with unmet prerequisites is rejected.</p></details>
+      <div class="method-boundary"><span class="eyebrow">What the record means</span><p>Persistent state makes work resumable and inspectable. Structural checks, artifact hashes, and reviewer labels do not establish scientific truth. Research claims still need evidence and substantive review.</p></div>
+    </section>
+    <section class="next-link paper"><div class="wrap"><span class="eyebrow">Next / 03 · Agent team</span><h2>One coordinator.<br>Twelve specialists.</h2><a class="text-link" href="./agents.html">Meet the agents</a></div></section>
+  </main>
+  <footer class="footer wrap"><a class="wordmark" href="./index.html">EdgeX</a><p>Open source · MIT licensed<br>No lab affiliation or endorsement</p><nav aria-label="Project links"><a href="https://github.com/KashyapSinh-Gohil/edgex-agents">Source</a><a href="https://github.com/KashyapSinh-Gohil/edgex-agents/issues">Issues</a><a href="https://github.com/KashyapSinh-Gohil/edgex-agents/blob/main/docs/PROTOCOL.md">Protocol</a></nav><span class="eyebrow">Research, with a record.</span></footer>
+</body>
+</html>
