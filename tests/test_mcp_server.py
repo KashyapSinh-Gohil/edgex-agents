@@ -245,7 +245,7 @@ def test_real_stdio_process_handshake_notifications_and_tool_call(tmp_path, vers
     assert len(responses[1]["result"]["tools"]) == 4
     assert ("structuredContent" in responses[2]["result"]) == (version == PROTOCOLS[-1])
     assert responses[3]["result"] == {}
-    assert completed.stderr == b"controller initialized\ncontroller status\n"
+    assert completed.stderr.splitlines() == [b"controller initialized", b"controller status"]
 
 
 def test_stdio_recovers_after_malformed_and_oversized_messages(tmp_path):
