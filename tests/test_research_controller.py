@@ -94,6 +94,35 @@ def test_failure_invalidates_acceptance_and_requires_new_objective(run):
     assert not any(x["accepted"] for x in s["criteria"])
 
 
+def test_unchanged_failed_action_cannot_be_retried(run):
+    c, s = run
+    s = step(c, s, "frame", outcome="failure")
+    with pytest.raises(ResearchError, match="Revise the failed objective"):
+        c.decide(s["run_id"], s["revision"], candidates("frame"))
+    revised = [candidate("frame", "Narrow the scope after the failed framing"),
+               candidate("frame", "Define a more measurable target", .4)]
+    assert c.decide(s["run_id"], s["revision"], revised)["decision"]["selected"]["action"] == "frame"
+
+
+@pytest.mark.parametrize("profile", ["empirical", "theoretical"])
+def test_full_profile_requires_replication_and_final_review(tmp_path, profile):
+    c = ResearchController(tmp_path)
+    s = c.start("Bounded question", ["Checked deliverable"], profile=profile)
+    actions = ["frame", "search", "design", "build"]
+    if profile == "empirical":
+        actions.append("execute")
+    for action in [*actions, "analyze"]:
+        s = step(c, s, action)
+    s = step(c, s, "review", actor="independent-reviewer", accept=True)
+    assert "write" not in s["allowed_actions"]
+    s = step(c, s, "replicate", actor="independent-replicator")
+    s = step(c, s, "write", actor="writer")
+    assert "complete" not in s["allowed_actions"]
+    s = step(c, s, "review", actor="independent-reviewer", accept=True)
+    s = step(c, s, "complete", actor="coordinator")
+    assert s["status"] == "completed"
+
+
 def test_self_review_rejected_and_integrity_checked(run):
     c, s = run
     for action in ("frame", "search", "analyze"):
