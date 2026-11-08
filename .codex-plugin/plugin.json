@@ -1,0 +1,27 @@
+{
+  "name": "edgex",
+  "version": "0.3.0",
+  "description": "Research agent team with evidence protocols, specialist delegation and resumable context.",
+  "author": {
+    "name": "EdgeX Agents contributors"
+  },
+  "homepage": "https://github.com/KashyapSinh-Gohil/edgex-agents",
+  "repository": "https://github.com/KashyapSinh-Gohil/edgex-agents",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "science",
+    "agent-skills",
+    "evidence",
+    "reproducibility"
+  ],
+  "skills": "./src/edgex/assets/skills/",
+  "interface": {
+    "displayName": "EdgeX",
+    "shortDescription": "Scientific research, review and reproducibility.",
+    "longDescription": "Start with edgex; route research to twelve specialist skills using the host's models and subagents. Includes evidence review, domain standards and context recovery.",
+    "developerName": "EdgeX Agents contributors",
+    "category": "Productivity",
+    "brandColor": "#165B52"
+  }
+}

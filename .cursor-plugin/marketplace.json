@@ -1,0 +1,16 @@
+{
+  "name": "edgex-agents",
+  "owner": {
+    "name": "EdgeX Agents contributors"
+  },
+  "metadata": {
+    "description": "EdgeX research agent team."
+  },
+  "plugins": [
+    {
+      "name": "edgex",
+      "source": ".",
+      "description": "Research agent team with evidence protocols, specialist delegation and resumable context."
+    }
+  ]
+}

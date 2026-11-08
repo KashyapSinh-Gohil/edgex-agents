@@ -1,0 +1,19 @@
+{
+  "name": "edgex-agents",
+  "interface": {
+    "displayName": "EdgeX Agents"
+  },
+  "plugins": [
+    {
+      "name": "edgex",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

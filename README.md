@@ -1,20 +1,53 @@
 # EdgeX Agents
 
 An open-source research team for Codex, Claude Code, Cursor, VS Code Copilot,
-and agents that can read Markdown instructions. Twelve specialist skills,
+and agents that can read Markdown instructions. One entry skill and twelve specialist skills,
 research protocols, persistent handoffs, context packets, and an evidence ledger.
 
-**Version 0.2.0: research toolkit with host-powered subagents.** The host provides
+**Version 0.3.0: native plugin and research toolkit with host-powered subagents.** The host provides
 models and tools. Installing skills does not train a model or establish research
 accuracy. EdgeX has no affiliation with or endorsement from any AI laboratory.
 
 ## Install the whole team
 
+### Native Codex plugin (account-wide)
+
+Install once, then use EdgeX across projects, like other installed Codex plugins:
+
+```bash
+codex plugin marketplace add https://github.com/KashyapSinh-Gohil/edgex-agents.git && codex plugin add edgex@edgex-agents
+```
+
+Start a new turn/session so the host discovers the plugin's skills. Say
+`Use EdgeX to research [topic]`, or explicitly request the `edgex` skill
+(namespaced as `edgex:edgex` where the host displays plugin namespaces).
+The entry skill chooses research, review, writing, or resume from the request,
+then loads only relevant specialists. Existing task authorization remains in effect.
+
+The plugin runs through your host's existing models, tools and subagents; no
+separate API key, research server or Python CLI is required to activate it.
+Installing it does not start background research or a persistent autonomous daemon.
+
+### Native Claude Code plugin
+
+```bash
+claude plugin marketplace add KashyapSinh-Gohil/edgex-agents
+claude plugin install edgex@edgex-agents
+```
+
+The manifest includes thirteen skills and twelve native specialist agents.
+Native Cursor plugin/marketplace manifests are also included; use Cursor's plugin
+installation flow for this repository. Codex installation is verified with its CLI;
+Claude manifests are validated, while live execution in other hosts depends on
+the installed host version.
+
+### Portable project installation
+
 Run inside the project where you want the agents available. Requires [uv](https://docs.astral.sh/uv/),
 Git, and Python 3.10+. `uvx` runs the CLI in an isolated environment.
 
 ```bash
-uvx --from "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.2.0" edgex install --target all --project .
+uvx --from "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.3.0" edgex install --target all --project .
 ```
 
 Choose `--target codex`, `claude`, `cursor`, `copilot`, or `generic` for one host.
@@ -24,7 +57,7 @@ and preserves existing agent configuration. It never configures credentials.
 Alternatively, install the CLI in a Python virtual environment:
 
 ```bash
-python -m pip install "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.2.0"
+python -m pip install "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.3.0"
 edgex install --target all --project .
 ```
 
@@ -68,6 +101,10 @@ claim-to-evidence links, limitations, and machine-assistance disclosure.
 | Scribe | Evidence-linked draft, bibliography, limitations and disclosure |
 | Context manager | Bounded context and source-preserving resume handoffs |
 | Reproducibility | Clean rerun instructions, environment/data/code provenance |
+
+The separate `edgex` entry skill routes requests to this team; it is not an
+additional research worker. Native plugin manifests and Python wheels point to
+the same canonical skill files, keeping protocol versions consistent.
 
 Domain guidance covers AI, ML, deep learning, programming, mathematics, physics,
 chemistry, biology, quantum technology, and space. Instructions express verification

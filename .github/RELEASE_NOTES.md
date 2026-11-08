@@ -1,7 +1,16 @@
-EdgeX Agents 0.2.0 packages twelve research specialist skills for Codex, Claude Code,
-Cursor, VS Code Copilot, and generic Markdown-capable hosts.
+EdgeX Agents 0.3.0 adds native Codex, Claude Code, and Cursor plugin manifests and
+marketplace catalogs. The new edgex entry skill routes requests to twelve research
+specialists using the host's model, tools and subagents.
 
-Includes project-local installers, native Claude subagent definitions, domain
+Install account-wide in Codex:
+
+```bash
+codex plugin marketplace add https://github.com/KashyapSinh-Gohil/edgex-agents.git && codex plugin add edgex@edgex-agents
+```
+
+Then ask: Use EdgeX to research [topic].
+
+Includes the portable project-local installer, native Claude subagent definitions, domain
 research protocols, evidence and review gates, persistent task leases, bounded
 resume context, offline drafts, and reproducibility guidance. MIT licensed.
 

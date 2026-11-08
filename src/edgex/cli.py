@@ -19,7 +19,7 @@ def _orchestrator(run_dir: str, offline: bool) -> EdgeXOrchestrator:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="edgex", description="EdgeX evidence-gated research agents")
-    parser.add_argument("--version", action="version", version="EdgeX Agents 0.2.0")
+    parser.add_argument("--version", action="version", version="EdgeX Agents 0.3.0")
     sub = parser.add_subparsers(dest="command", required=True)
 
     init = sub.add_parser("init", help="create a resumable research run")

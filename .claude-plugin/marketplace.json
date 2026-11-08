@@ -1,0 +1,15 @@
+{
+  "name": "edgex-agents",
+  "description": "EdgeX scientific research skills and specialist agents.",
+  "owner": {
+    "name": "EdgeX Agents contributors"
+  },
+  "plugins": [
+    {
+      "name": "edgex",
+      "source": "./",
+      "version": "0.3.0",
+      "description": "Research agent team with evidence protocols, specialist delegation and resumable context."
+    }
+  ]
+}

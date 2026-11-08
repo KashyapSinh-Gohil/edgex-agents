@@ -7,8 +7,7 @@ from edgex.coordination import ROLES
 
 def test_complete_skill_bundle_and_local_references():
     root = files("edgex").joinpath("assets", "skills")
-    for role in ROLES:
-        name = f"edgex-{role}"
+    for name in ["edgex", *(f"edgex-{role}" for role in ROLES)]:
         skill = root.joinpath(name, "SKILL.md")
         text = skill.read_text(encoding="utf-8")
         assert text.startswith("---\n")

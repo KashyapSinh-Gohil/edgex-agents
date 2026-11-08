@@ -1,0 +1,22 @@
+{
+  "name": "edgex",
+  "version": "0.3.0",
+  "description": "Research agent team with evidence protocols, specialist delegation and resumable context.",
+  "author": {
+    "name": "EdgeX Agents contributors"
+  },
+  "homepage": "https://github.com/KashyapSinh-Gohil/edgex-agents",
+  "repository": "https://github.com/KashyapSinh-Gohil/edgex-agents",
+  "license": "MIT",
+  "keywords": [
+    "research",
+    "science",
+    "agent-skills",
+    "evidence",
+    "reproducibility"
+  ],
+  "displayName": "EdgeX",
+  "skills": "./src/edgex/assets/skills/",
+  "agents": "./agents/",
+  "category": "productivity"
+}
