@@ -10,7 +10,10 @@ from __future__ import annotations
 
 from hashlib import sha256
 from importlib import resources
-from importlib.resources.abc import Traversable
+try:
+    from importlib.resources.abc import Traversable
+except ImportError:  # Python 3.10 exposes the same protocol in importlib.abc.
+    from importlib.abc import Traversable
 import json
 import os
 from pathlib import Path, PurePosixPath
