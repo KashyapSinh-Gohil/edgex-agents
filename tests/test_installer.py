@@ -246,9 +246,10 @@ def test_file_in_directory_position_refused(package: Path, tmp_path: Path) -> No
     project = tmp_path / "project"
     project.mkdir()
     (project / ".agents").write_text("User file\n")
+    before = snapshot(project)
     with pytest.raises(installer.InstallConflictError):
         installer.install_package("codex", project)
-    assert snapshot(project) == {".agents": b"User file\n"}
+    assert snapshot(project) == before
 
 
 def test_resource_symlink_refused(package: Path, tmp_path: Path) -> None:
