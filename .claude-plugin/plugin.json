@@ -1,6 +1,6 @@
 {
   "name": "edgex",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Research agent team with evidence protocols, specialist delegation and resumable context.",
   "author": {
     "name": "EdgeX Agents contributors"
@@ -18,7 +18,9 @@
   "skills": [
     "./src/edgex/assets/skills/"
   ],
+  "mcpServers": "./.mcp.json",
   "agents": [
+    "./agents/edgex-researcher.md",
     "./agents/edgex-orchestrator.md",
     "./agents/edgex-scout.md",
     "./agents/edgex-architect.md",

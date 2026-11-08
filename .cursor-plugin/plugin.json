@@ -1,6 +1,6 @@
 {
   "name": "edgex",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Research agent team with evidence protocols, specialist delegation and resumable context.",
   "author": {
     "name": "EdgeX Agents contributors"

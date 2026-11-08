@@ -1,0 +1,10 @@
+{
+  "name": "edgex-research-agent",
+  "version": "0.4.0",
+  "private": true,
+  "description": "Install the EdgeX Codex plugin and custom research agent from GitHub",
+  "engines": { "node": ">=18" },
+  "bin": { "edgex-agent": "cli/install.mjs" },
+  "files": ["cli", "codex"],
+  "scripts": { "test": "node --test cli/install.test.mjs" }
+}

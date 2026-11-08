@@ -4,11 +4,31 @@ An open-source research team for Codex, Claude Code, Cursor, VS Code Copilot,
 and agents that can read Markdown instructions. One entry skill and twelve specialist skills,
 research protocols, persistent handoffs, context packets, and an evidence ledger.
 
-**Version 0.3.0: native plugin and research toolkit with host-powered subagents.** The host provides
+**Version 0.4.0: named research agent with a persistent decision controller.** The host provides
 models and tools. Installing skills does not train a model or establish research
 accuracy. EdgeX has no affiliation with or endorsement from any AI laboratory.
 
 ## Install the whole team
+
+### One-command native research agent
+
+```bash
+npx --yes github:KashyapSinh-Gohil/edgex-agents#v0.4.0
+```
+
+Requires Node 18+, Git, Codex with plugin support, and Python 3.10+ for the
+controller. This is an NPX package distributed from GitHub, not a published npm
+registry name. It installs the native plugin and the personal custom agent
+`edgex_researcher` under `~/.codex/agents/`. Existing modified files are preserved.
+Use `--dry-run` to inspect installation first.
+
+Start a new chat and ask:
+
+> Use the edgex_researcher agent to research [specific question]. Compare next actions,
+> preserve evidence and continue until the acceptance criteria or budget is reached.
+
+[Website](https://kashyapsinh-gohil.github.io/edgex-agents/) ·
+[Research controller](docs/RESEARCHER.md) · [Source and releases](https://github.com/KashyapSinh-Gohil/edgex-agents/releases)
 
 ### Native Codex plugin (account-wide)
 
@@ -24,9 +44,11 @@ Start a new turn/session so the host discovers the plugin's skills. Say
 The entry skill chooses research, review, writing, or resume from the request,
 then loads only relevant specialists. Existing task authorization remains in effect.
 
-The plugin runs through your host's existing models, tools and subagents; no
-separate API key, research server or Python CLI is required to activate it.
-Installing it does not start background research or a persistent autonomous daemon.
+The native plugin starts its bundled MCP controller through Node and Python.
+The host's existing model supplies reasoning and native workers; the controller
+needs no provider API key. Installing the plugin alone loads the skills and tools;
+the NPX installer also installs the named Codex custom agent. Research progresses
+while the host agent is running, and its state survives host/session restarts.
 
 ### Native Claude Code plugin
 
@@ -35,7 +57,7 @@ claude plugin marketplace add KashyapSinh-Gohil/edgex-agents
 claude plugin install edgex@edgex-agents
 ```
 
-The manifest includes thirteen skills and twelve native specialist agents.
+The manifest includes thirteen skills, twelve specialist agents and the research agent.
 Native Cursor plugin/marketplace manifests are also included; use Cursor's plugin
 installation flow for this repository. Codex installation is verified with its CLI;
 Claude manifests are validated, while live execution in other hosts depends on
@@ -47,7 +69,7 @@ Run inside the project where you want the agents available. Requires [uv](https:
 Git, and Python 3.10+. `uvx` runs the CLI in an isolated environment.
 
 ```bash
-uvx --from "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.3.0" edgex install --target all --project .
+uvx --from "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.4.0" edgex install --target all --project .
 ```
 
 Choose `--target codex`, `claude`, `cursor`, `copilot`, or `generic` for one host.
@@ -57,7 +79,7 @@ and preserves existing agent configuration. It never configures credentials.
 Alternatively, install the CLI in a Python virtual environment:
 
 ```bash
-python -m pip install "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.3.0"
+python -m pip install "git+https://github.com/KashyapSinh-Gohil/edgex-agents.git@v0.4.0"
 edgex install --target all --project .
 ```
 
@@ -79,7 +101,7 @@ workers. Other hosts follow the roles sequentially and must say so.
 ## Ask the team to work
 
 ```text
-Use edgex-orchestrator and delegate to the relevant EdgeX specialists.
+Use edgex_researcher and delegate to the relevant EdgeX specialists.
 Research whether [specific intervention] improves [metric] on [fixed benchmark].
 Set a 2-hour / 20-call budget. First record the hypothesis, baseline, splits,
 failure criteria, and replication plan. Keep original evidence and artifacts.
@@ -112,6 +134,16 @@ requirements; they do not imply lab access or qualified expert validation. See
 [research standards](docs/RESEARCH_STANDARDS.md) and [protocol](docs/PROTOCOL.md).
 
 ## Runtime and long tasks
+
+The native research agent uses executable controller tools: `research_start`,
+`research_status`, `research_decide` and `research_observe`. It compares 2..8
+candidate actions, commits a decision, records actual work and replans. Revisions,
+prerequisites, immutable artifacts, distinct reviewer labels, step budgets and
+wall-clock budgets are enforced in code. The controller cannot verify semantic
+truth or authenticate a self-reported worker identity. See [the precise contract](docs/RESEARCHER.md).
+
+The following commands are the **legacy bootstrap/task toolkit**, retained for
+compatibility; `edgex run` is not the new research controller:
 
 The CLI persists research state and task handoffs. Host agents perform specialist
 work; `edgex run` itself is a literature/hypothesis/draft bootstrap, not a scheduler

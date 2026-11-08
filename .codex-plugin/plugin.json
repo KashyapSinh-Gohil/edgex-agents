@@ -1,6 +1,6 @@
 {
   "name": "edgex",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Research agent team with evidence protocols, specialist delegation and resumable context.",
   "author": {
     "name": "EdgeX Agents contributors"
@@ -16,12 +16,16 @@
     "reproducibility"
   ],
   "skills": "./src/edgex/assets/skills/",
+  "mcpServers": "./.codex-plugin/mcp.json",
   "interface": {
     "displayName": "EdgeX",
     "shortDescription": "Scientific research, review and reproducibility.",
     "longDescription": "Start with edgex; route research to twelve specialist skills using the host's models and subagents. Includes evidence review, domain standards and context recovery.",
     "developerName": "EdgeX Agents contributors",
     "category": "Productivity",
-    "brandColor": "#165B52"
+    "brandColor": "#171717",
+    "composerIcon": "./site/assets/edgex-mark.png",
+    "logo": "./site/assets/edgex-mark.png",
+    "websiteURL": "https://kashyapsinh-gohil.github.io/edgex-agents/"
   }
 }

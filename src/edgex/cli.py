@@ -19,7 +19,7 @@ def _orchestrator(run_dir: str, offline: bool) -> EdgeXOrchestrator:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="edgex", description="EdgeX evidence-gated research agents")
-    parser.add_argument("--version", action="version", version="EdgeX Agents 0.3.0")
+    parser.add_argument("--version", action="version", version="EdgeX Agents 0.4.0")
     sub = parser.add_subparsers(dest="command", required=True)
 
     init = sub.add_parser("init", help="create a resumable research run")
@@ -49,6 +49,9 @@ def build_parser() -> argparse.ArgumentParser:
     install.add_argument("--target", choices=["codex", "claude", "cursor", "copilot", "generic", "all"], default="all")
     install.add_argument("--project", type=Path, default=Path.cwd())
     install.add_argument("--dry-run", action="store_true")
+
+    server = sub.add_parser("serve", help="serve the persistent research controller through MCP stdio")
+    server.add_argument("--root", type=Path, default=Path.home() / ".local/share/edgex/research")
 
     context = sub.add_parser("context", help="export bounded resume context")
     context.add_argument("run_dir")
@@ -89,6 +92,10 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     try:
+        if args.command == "serve":
+            from .mcp_server import serve
+            serve(args.root)
+            return 0
         if args.command == "install":
             from .installer import install_package
             paths = install_package(args.target, args.project, args.dry_run)

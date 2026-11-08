@@ -1,14 +1,24 @@
-EdgeX Agents 0.3.0 adds native Codex, Claude Code, and Cursor plugin manifests and
-marketplace catalogs. The new edgex entry skill routes requests to twelve research
-specialists using the host's model, tools and subagents.
+EdgeX 0.4.0 adds the named edgex_researcher custom agent and an executable,
+persistent research controller exposed through four MCP tools. The controller
+compares next-action proposals, enforces prerequisites and revisions, records
+immutable artifacts, and invalidates acceptance when results change.
 
 Install account-wide in Codex:
 
 ```bash
-codex plugin marketplace add https://github.com/KashyapSinh-Gohil/edgex-agents.git && codex plugin add edgex@edgex-agents
+npx --yes github:KashyapSinh-Gohil/edgex-agents#v0.4.0
 ```
 
-Then ask: Use EdgeX to research [topic].
+Then ask: Use the edgex_researcher agent to research [specific question].
+
+The NPX package is distributed directly from GitHub, not the npm registry. It
+requires Node 18+, Git, Codex plugin support and Python 3.10+ for the controller.
+The host model supplies reasoning and actual workers; no provider API key is
+needed by the controller. Distinct actor labels are audit metadata, not proof of
+independent review, and structural evidence checks do not establish scientific truth.
+
+Includes a monochrome logo and lightweight GitHub Pages showcase at
+https://kashyapsinh-gohil.github.io/edgex-agents/ .
 
 Includes the portable project-local installer, native Claude subagent definitions, domain
 research protocols, evidence and review gates, persistent task leases, bounded

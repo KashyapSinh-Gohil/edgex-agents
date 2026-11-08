@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "edgex-research": {
+      "command": "node",
+      "args": ["./cli/mcp-launcher.mjs"],
+      "cwd": "."
+    }
+  }
+}

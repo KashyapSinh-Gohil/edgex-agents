@@ -5,9 +5,11 @@ description: Runs the EdgeX research agent team. Use when the user asks for Edge
 
 # EdgeX
 
-Use this as the single entry to the EdgeX research team. Work through the host's
-existing model, tools and native subagents. No separate model subscription,
-API server or Python process is required to activate the skills.
+Use this as the entry to the named EdgeX-Researcher agent. Delegate substantive
+research to the native custom agent edgex_researcher when the host exposes it.
+Its persistent decision controller is provided by the EdgeX research MCP server;
+the host supplies the model and actual specialist workers. This requires Node
+and Python 3.10+, but no separate provider API key for the controller.
 
 Read [the protocol](references/protocol.md). Apply the relevant
 [domain requirements](references/domains.md). Resolve these references relative
@@ -18,6 +20,12 @@ to this skill directory, independent of the current working directory.
 1. Infer the task from the user's request and existing context. Announce
    "EdgeX active: research", "EdgeX active: review", "EdgeX active: writing",
    or "EdgeX active: resume", whichever matches the requested work.
+   For a research run, discover research_start/status/decide/observe tools and
+   use them to record a run ID, current revision, compared alternatives and
+   observations. Show the selected next action and its short decision rationale.
+   The controller rejects stale state, skipped prerequisites and unsupported
+   completion. If tools are unavailable, report the missing controller rather
+   than claiming that the researcher is running.
 2. Use the installed edgex-orchestrator skill for the task graph, checkpoints,
    budgets and acceptance criteria. Use the host's skill discovery or resolve
    sibling edgex-orchestrator/SKILL.md relative to this skill's parent directory.
@@ -42,11 +50,13 @@ proofs and speculation. Trace central claims to inspected sources or artifacts.
 Use referee and reproducibility for consequential acceptance claims. Preserve
 failed attempts, contrary evidence, qualifications and current user constraints.
 
-Use durable files in an authorized project/run directory for long work. Keep
-working context bounded and retain pointers to original evidence. The optional
-EdgeX Python CLI can store tasks and packets; it is not required for activation.
-If it is unavailable, use the protocol's JSON/Markdown task records with host
-tools. Never invent a running scheduler, background process or completed check.
+Keep working context bounded and retain pointers to original evidence. Use the
+controller's artifacts_directory and new immutable paths for actual results.
+Compare 2..8 distinct next actions using evidence and explicit uncertainty.
+Perform the selected action with real tools, then observe its result before
+dispatching another decision. Resume pending work by reconciling actual process
+state. Never invent a running scheduler, worker or completed check. The legacy
+edgex run command is a bootstrap and must not be presented as this controller.
 
 Ask only for missing information that materially blocks the next authorized
 action. A mode announcement is not a permission request or a saved global setting.
