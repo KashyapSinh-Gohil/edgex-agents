@@ -28,6 +28,12 @@ class ExperimentExecutor:
     def run(self, argv: Sequence[str], cwd: str | Path) -> ExecutionOutcome:
         started = time.monotonic()
         env = {"PATH": os.environ.get("PATH", ""), "PYTHONUNBUFFERED": "1"}
+        # Windows needs SystemRoot for side-by-side assemblies/DLL loading.
+        # Preserve OS bootstrap paths, while keeping provider secrets excluded.
+        if os.name == "nt":
+            for key in ("SYSTEMROOT", "WINDIR", "TEMP", "TMP"):
+                if key in os.environ:
+                    env[key] = os.environ[key]
         for key in ("CUDA_VISIBLE_DEVICES", "OMP_NUM_THREADS", "MKL_NUM_THREADS"):
             if key in os.environ:
                 env[key] = os.environ[key]

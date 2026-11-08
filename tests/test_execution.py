@@ -10,7 +10,7 @@ def test_executor_does_not_forward_api_credentials(tmp_path, monkeypatch):
     monkeypatch.setenv("OPENAI_API_KEY", "test-secret-not-a-real-key")
     result = ExperimentExecutor(10).run(
         [sys.executable, "-c", "import os; print('OPENAI_API_KEY' in os.environ)"], tmp_path)
-    assert result.status == "completed"
+    assert result.status == "completed", result.stderr
     assert result.stdout.strip() == "False"
 
 
